@@ -1,47 +1,76 @@
 package com.example.firebaseappwithmvvmdaggerhilt.presentation.ui.fragments
 
+
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.firebaseappwithmvvmdaggerhilt.R
+import com.example.firebaseappwithmvvmdaggerhilt.data.models.Note
+import com.example.firebaseappwithmvvmdaggerhilt.databinding.FragmentNoteDetailBinding
 import com.example.firebaseappwithmvvmdaggerhilt.databinding.FragmentNoteListBinding
+import com.example.firebaseappwithmvvmdaggerhilt.presentation.ui.adapters.NoteListingAdapter
 import com.example.firebaseappwithmvvmdaggerhilt.presentation.viewmodel.NoteViewModel
-import com.example.firebaseappwithmvvmdaggerhilt.util.UIStates
+import com.example.firebaseappwithmvvmdaggerhilt.util.UiState
+import com.example.firebaseappwithmvvmdaggerhilt.util.hide
+import com.example.firebaseappwithmvvmdaggerhilt.util.show
+import com.example.firebaseappwithmvvmdaggerhilt.util.toast
+
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
-class NoteListFragment: Fragment(R.layout.fragment_note_list){
+class NoteListingFragment : Fragment() {
 
-    private var TAG = "NoteListFragment"
-    private lateinit var binding: FragmentNoteListBinding
+    val TAG: String = "NoteListingFragment"
+    lateinit var binding: FragmentNoteListBinding
+    val viewModel: NoteViewModel by viewModels()
+    val adapter by lazy {
+        NoteListingAdapter(
+            onItemClicked = { pos, item ->
 
-    private val viewModel: NoteViewModel by viewModels()
+            },
+            onEditClicked = { pos, item ->
+
+            },
+            onDeleteClicked = { pos, item ->
+
+            }
+        )
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentNoteListBinding.inflate(layoutInflater)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding = FragmentNoteListBinding.bind(view)
-
+        binding.recyclerView.adapter = adapter
+        binding.button.setOnClickListener {
+            findNavController().navigate(R.id.action_noteListFragment_to_noteDetailFragment3)
+        }
         viewModel.getNotes()
-        //observe live data
-        viewModel.note.observe(viewLifecycleOwner){state ->
+        viewModel.note.observe(viewLifecycleOwner) { state ->
             when(state){
-                is UIStates.Loading ->{
-                    Log.d(TAG, "Loading... ")
+                is UiState.Loading -> {
+                    binding.progressBar.show()
                 }
-                is UIStates.Success ->{
-                    state.data.forEach{
-                        Log.d(TAG, it.toString())
-                    }
+                is UiState.Failure -> {
+                    binding.progressBar.hide()
+                    toast(state.error)
                 }
-                is UIStates.Failure ->{
-                    Log.e(TAG, state.error.toString() )
+                is UiState.Success -> {
+                    binding.progressBar.hide()
+                    adapter.updateList(state.data.toMutableList())
                 }
             }
         }
     }
-
-
 }

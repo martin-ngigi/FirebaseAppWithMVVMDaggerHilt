@@ -1,7 +1,7 @@
 package com.example.firebaseappwithmvvmdaggerhilt.presentation.di
 
 import com.example.firebaseappwithmvvmdaggerhilt.data.repository.NoteRepository
-import com.example.firebaseappwithmvvmdaggerhilt.data.repository.NoteRepositoryImpl
+import com.example.firebaseappwithmvvmdaggerhilt.data.repository.NoteRepositoryImp
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
@@ -18,6 +18,6 @@ object RepositoryModule {
     fun providesNoteRepository(
         database: FirebaseFirestore
     ): NoteRepository{
-        return NoteRepositoryImpl(database)
+        return NoteRepositoryImp(database)
     }
 }

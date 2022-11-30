@@ -5,8 +5,10 @@
       <map>
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/FirebaseAppWithMVVMDaggerHilt/app/src/main/res/layout/activity_main.xml" value="0.13541666666666666" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/FirebaseAppWithMVVMDaggerHilt/app/src/main/res/layout/fragment_forgot_password.xml" value="0.10989583333333333" />
-        <entry key="..\:/Users/Administrator/AndroidStudioProjects/FirebaseAppWithMVVMDaggerHilt/app/src/main/res/layout/fragment_note_detail.xml" value="0.13541666666666666" />
-        <entry key="..\:/Users/Administrator/AndroidStudioProjects/FirebaseAppWithMVVMDaggerHilt/app/src/main/res/layout/fragment_note_list.xml" value="0.13541666666666666" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/FirebaseAppWithMVVMDaggerHilt/app/src/main/res/layout/fragment_note_detail.xml" value="0.18" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/FirebaseAppWithMVVMDaggerHilt/app/src/main/res/layout/fragment_note_list.xml" value="0.25" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/FirebaseAppWithMVVMDaggerHilt/app/src/main/res/layout/image_layout.xml" value="0.14635416666666667" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/FirebaseAppWithMVVMDaggerHilt/app/src/main/res/layout/item_note_layout.xml" value="0.21285140562248997" />
       </map>
     </option>
   </component>

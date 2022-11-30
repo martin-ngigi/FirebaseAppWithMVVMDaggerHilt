@@ -1,31 +1,35 @@
 package com.example.firebaseappwithmvvmdaggerhilt.presentation.viewmodel
 
-import android.os.Handler
-import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.firebaseappwithmvvmdaggerhilt.data.models.Notes
+import com.example.firebaseappwithmvvmdaggerhilt.data.models.Note
 import com.example.firebaseappwithmvvmdaggerhilt.data.repository.NoteRepository
-import com.example.firebaseappwithmvvmdaggerhilt.util.UIStates
+import com.example.firebaseappwithmvvmdaggerhilt.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class NoteViewModel @Inject constructor(
-    private val repository: NoteRepository
+    val repository: NoteRepository
 ): ViewModel() {
 
-    //for getting live data
-    private val _notes = MutableLiveData<UIStates<List<Notes>>>()
-    //for exposing live data
-    val note: LiveData<UIStates<List<Notes>>>
-                get()=_notes
+    private val _notes = MutableLiveData<UiState<List<Note>>>()
+    val note: LiveData<UiState<List<Note>>>
+        get() = _notes
 
-    fun getNotes(){
-        _notes.value = UIStates.Loading
-        Handler(Looper.getMainLooper()).postDelayed({
-            _notes.value = repository.getNotes()
-        }, 2000)
+    private val _addNote = MutableLiveData<UiState<String>>()
+    val addNote: LiveData<UiState<String>>
+        get() = _addNote
+
+    fun getNotes() {
+        _notes.value = UiState.Loading
+        repository.getNotes { _notes.value = it }
     }
+
+    fun addNote(note: Note){
+        _addNote.value = UiState.Loading
+        repository.addNote(note) { _addNote.value = it }
+    }
+
 }
