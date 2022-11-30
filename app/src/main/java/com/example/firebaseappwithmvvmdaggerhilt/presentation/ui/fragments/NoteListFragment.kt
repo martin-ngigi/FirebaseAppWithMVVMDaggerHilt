@@ -31,10 +31,16 @@ class NoteListingFragment : Fragment() {
     val adapter by lazy {
         NoteListingAdapter(
             onItemClicked = { pos, item ->
-
+                findNavController().navigate(R.id.action_noteListFragment_to_noteDetailFragment3, Bundle().apply {
+                    putString("type", "view") //passing data between fragments
+                    putParcelable("note", item)
+                })
             },
             onEditClicked = { pos, item ->
-
+                findNavController().navigate(R.id.action_noteListFragment_to_noteDetailFragment3, Bundle().apply {
+                    putString("type", "edit") //passing data between fragments
+                    putParcelable("note", item)
+                })
             },
             onDeleteClicked = { pos, item ->
 
@@ -54,7 +60,9 @@ class NoteListingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerView.adapter = adapter
         binding.button.setOnClickListener {
-            findNavController().navigate(R.id.action_noteListFragment_to_noteDetailFragment3)
+            findNavController().navigate(R.id.action_noteListFragment_to_noteDetailFragment3, Bundle().apply {
+                putString("type", "create") //passing data between fragments
+            })
         }
         viewModel.getNotes()
         viewModel.note.observe(viewLifecycleOwner) { state ->
