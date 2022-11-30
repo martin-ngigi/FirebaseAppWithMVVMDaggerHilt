@@ -1,4 +1,4 @@
-package com.example.firebaseappwithmvvmdaggerhilt.ui.activities
+package com.example.firebaseappwithmvvmdaggerhilt.presentation.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

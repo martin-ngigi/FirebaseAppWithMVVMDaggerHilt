@@ -16,7 +16,7 @@
         android:theme="@style/Theme.FirebaseAppWithMVVMDaggerHilt"
         tools:targetApi="31">
         <activity
-            android:name=".ui.activities.MainActivity"
+            android:name="com.example.firebaseappwithmvvmdaggerhilt.presentation.ui.activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

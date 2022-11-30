@@ -1,4 +1,4 @@
-package com.example.firebaseappwithmvvmdaggerhilt.ui.fragments
+package com.example.firebaseappwithmvvmdaggerhilt.presentation.ui.fragments
 
 import android.os.Bundle
 import android.view.View
