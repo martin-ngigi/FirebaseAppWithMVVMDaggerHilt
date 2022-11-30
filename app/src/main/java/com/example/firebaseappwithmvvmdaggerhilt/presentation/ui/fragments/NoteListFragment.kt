@@ -1,13 +1,16 @@
 package com.example.firebaseappwithmvvmdaggerhilt.presentation.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.firebaseappwithmvvmdaggerhilt.R
 import com.example.firebaseappwithmvvmdaggerhilt.databinding.FragmentNoteListBinding
 import com.example.firebaseappwithmvvmdaggerhilt.presentation.viewmodel.NoteViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NoteListFragment: Fragment(R.layout.fragment_note_list){
 
     private var TAG = "NoteListFragment"
@@ -23,7 +26,9 @@ class NoteListFragment: Fragment(R.layout.fragment_note_list){
         viewModel.getNotes()
         //observe live data
         viewModel.note.observe(viewLifecycleOwner){
-
+            it.forEach{
+                Log.d(TAG, it.toString())
+            }
         }
     }
 

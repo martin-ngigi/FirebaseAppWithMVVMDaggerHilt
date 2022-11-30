@@ -6,7 +6,9 @@ import android.util.Log
 import android.widget.Toast
 import com.example.firebaseappwithmvvmdaggerhilt.databinding.ActivityMainBinding
 import com.google.firebase.firestore.FirebaseFirestore
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     val TAG = "MainActivity"
 
