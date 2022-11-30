@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import com.example.firebaseappwithmvvmdaggerhilt.R
 import com.example.firebaseappwithmvvmdaggerhilt.databinding.FragmentNoteListBinding
 import com.example.firebaseappwithmvvmdaggerhilt.presentation.viewmodel.NoteViewModel
+import com.example.firebaseappwithmvvmdaggerhilt.util.UIStates
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -25,9 +26,19 @@ class NoteListFragment: Fragment(R.layout.fragment_note_list){
 
         viewModel.getNotes()
         //observe live data
-        viewModel.note.observe(viewLifecycleOwner){
-            it.forEach{
-                Log.d(TAG, it.toString())
+        viewModel.note.observe(viewLifecycleOwner){state ->
+            when(state){
+                is UIStates.Loading ->{
+                    Log.d(TAG, "Loading... ")
+                }
+                is UIStates.Success ->{
+                    state.data.forEach{
+                        Log.d(TAG, it.toString())
+                    }
+                }
+                is UIStates.Failure ->{
+                    Log.e(TAG, state.error.toString() )
+                }
             }
         }
     }
